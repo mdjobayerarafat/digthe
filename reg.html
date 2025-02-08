@@ -9,10 +9,13 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(to right, #333, #4b0082, #800080, #7b68ee, #4682b4);
+            background: linear-gradient(45deg, rgb(161, 0, 179), rgb(97, 0, 208), rgb(161, 0, 179), rgb(161, 0, 179), rgb(97, 0, 208), rgb(161, 0, 179), rgb(161, 0, 179), rgb(97, 0, 208), rgb(161, 0, 179));
+            background-size: 400% 100%;
+            animation: moving-grad 15s ease infinite;
             color: #333;
             overflow-y: auto;
             min-height: 100vh;
+        
         }
         header {
             color: white;
@@ -39,10 +42,8 @@
         section {
             padding: 20px;
         }
-        .green-section {
-            background: linear-gradient(to right, #333, #4b0082, #800080, #7b68ee, #4682b4);
-            color: white;
-        }
+       
+      
         .registration-form {
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
