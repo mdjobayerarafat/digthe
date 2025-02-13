@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Complete</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(45deg, rgb(161, 0, 179), rgb(97, 0, 208));
+            background-size: 200% 200%;
+            animation: moving-grad 10s ease infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        @keyframes moving-grad {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            min-height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .inner-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            transition: transform 0.3s ease;
+        }
+
+        .inner-container:hover {
+            transform: translateY(-5px);
+        }
+
+        h1 {
+            color: #800080;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            color: #fff;
+            background: linear-gradient(45deg, #800080, #4b0082);
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #4b0082, #800080);
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .container {
+                margin: 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+
+            .button {
+                padding: 12px 24px;
+                font-size: 1rem;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .container {
+                margin: 10px;
+            }
+
+            .inner-container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .button {
+                padding: 10px 20px;
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        /* Animation for content */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .inner-container {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="inner-container">
+            <h1>Registration Complete</h1>
+            <p>Thank you for registering!<br>Your registration is now complete.</p>
+            <a href="{% url 'user_login' %}" class="button">Proceed to Login</a>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

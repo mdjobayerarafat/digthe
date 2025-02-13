@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Registration Closed{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="max-w-md mx-auto bg-white rounded-lg shadow-md p-8">
+        <div class="text-center">
+            <h1 class="text-2xl font-bold text-gray-800 mb-4">Registration Currently Closed</h1>
+
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
+                <p class="text-yellow-700">
+                    We're sorry, but new user registration is temporarily unavailable.
+                </p>
+            </div>
+
+            <p class="text-gray-600 mb-6">
+                This might be due to:
+                <ul class="text-left list-disc list-inside mt-2">
+                    <li>Scheduled maintenance</li>
+                    <li>System updates</li>
+                    <li>Administrative decision</li>
+                </ul>
+            </p>
+
+            <p class="text-gray-600 mb-6">
+                Please check back later or contact our support team if you need immediate assistance.
+            </p>
+
+            <div class="space-x-4">
+                <a href="{% url 'home' %}" class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg transition duration-200">
+                    Return Home
+                </a>
+
+                <a href="{% url 'contact' %}" class="inline-block bg-gray-500 hover:bg-gray-600 text-white font-semibold px-4 py-2 rounded-lg transition duration-200">
+                    Contact Support
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

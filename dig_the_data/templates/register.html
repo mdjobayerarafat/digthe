@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Open Sans", sans-serif;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            width: 100%;
+            padding: 0 10px;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #333, #4b0082, #800080, #7b68ee, #4682b4);
+            animation: gradient 15s ease infinite;
+            background-position: center;
+            background-size: cover;
+            z-index: -1;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .wrapper {
+            width: 450px;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .input-field {
+            position: relative;
+            border-bottom: 2px solid #ccc;
+            margin: 15px 0;
+        }
+
+        .input-field label {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            color: #fff;
+            font-size: 16px;
+            pointer-events: none;
+            transition: 0.15s ease;
+        }
+
+        .input-field input,
+        .input-field select {
+            width: 100%;
+            height: 40px;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            color: #fff;
+        }
+
+        .input-field select {
+            cursor: pointer;
+        }
+
+        .input-field select option {
+            background: #4b0082;
+            color: #fff;
+        }
+
+        .input-field input:focus ~ label,
+        .input-field input:valid ~ label {
+            font-size: 0.8rem;
+            top: 10px;
+            transform: translateY(-120%);
+        }
+
+        button {
+            background: #fff;
+            color: #000;
+            font-weight: 600;
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            border-radius: 3px;
+            font-size: 16px;
+            border: 2px solid transparent;
+            transition: 0.3s ease;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        button:hover {
+            color: #fff;
+            border-color: #fff;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        #loading {
+            display: none;
+            text-align: center;
+            font-size: 18px;
+            color: #fff;
+            margin-top: 20px;
+        }
+
+        #response {
+            color: #fff;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <h2>User Registration</h2>
+        <form method="post" id="registrationForm">
+            {% csrf_token %}
+
+            <div class="input-field">
+                {{ form.name }}
+                <label>Full Name</label>
+            </div>
+
+            <div class="input-field">
+                {{ form.class_id }}
+                <label>Class ID</label>
+            </div>
+
+            <div class="input-field">
+                <select name="department" required>
+                    <option value="" disabled selected>Select Department</option>
+                    {% for value, label in form.department.field.choices %}
+                        <option value="{{ value }}">{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="input-field">
+                {{ form.wp_number }}
+                <label>WhatsApp Number</label>
+            </div>
+
+            <div class="input-field">
+                {{ form.email }}
+                <label>Email Address</label>
+            </div>
+
+            <div class="input-field">
+                {{ form.password }}
+                <label>Password</label>
+            </div>
+
+            <div class="input-field">
+                {{ form.confirm_password }}
+                <label>Confirm Password</label>
+            </div>
+
+            <button type="submit">Register</button>
+        </form>
+        <p id="loading">Processing...</p>
+        <p id="response"></p>
+    </div>
+
+    <script>
+        document.getElementById("registrationForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            document.getElementById("loading").style.display = "block";
+
+            var formData = new FormData(this);
+            fetch("{% url 'register' %}", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(response => response.text())
+            .then(data => {
+                window.location.href = '{% url "done" %}';
+            })
+            .catch(error => {
+                document.getElementById("loading").style.display = "none";
+                document.getElementById("response").innerText = "Error: " + error.message;
+            });
+        });
+    </script>
+</body>
+{% endblock %}
+</html>
